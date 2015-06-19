@@ -68,7 +68,24 @@
     imageView.layer.mask = maskLayer;
     [self.view addSubview:imageView];
     
+    // custom drawing
+    CALayer *customLayer = [CALayer layer];
+    customLayer.frame = CGRectMake(50, 380, 100, 100);
+    customLayer.backgroundColor = [UIColor whiteColor].CGColor;
+    customLayer.delegate = self;
+    [layer addSublayer:customLayer];
+    [customLayer setNeedsDisplay];
 }
+
+
+- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
+    
+    CGContextSetLineWidth(context, 2.0f);
+    CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+    CGContextStrokeEllipseInRect(context, layer.bounds);
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
